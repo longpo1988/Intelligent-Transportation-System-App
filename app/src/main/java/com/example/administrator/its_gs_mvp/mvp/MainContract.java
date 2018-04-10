@@ -6,12 +6,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 
 import com.example.administrator.its_gs_mvp.mvp.mpdel.CallBack;
-import com.example.administrator.its_gs_mvp.mvp.presenter.IBasePresenter;
+import com.example.administrator.its_gs_mvp.mvp.presenter.base.IBasePresenter;
 import com.example.administrator.its_gs_mvp.mvp.view.IBaseView;
 
 /**
  * 主界面 契约
- * Created by xww on 2018/4/8 0008.
+ *
+ * @Created by xww on 2018/4/8 0008.
  */
 
 public class MainContract {

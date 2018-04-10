@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by xww on 2018/4/8 0008.
+ * @Created by xww on 2018/4/8 0008.
  */
 
 public class MainModel implements MainContract.Model {

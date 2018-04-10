@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.administrator.its_gs_mvp.mvp.presenter.BasePresenterImpl;
-
-import butterknife.ButterKnife;
+import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
 
 /**
  * Activity 基类
- * Created by xww on 2018/4/8 0008.
+ *
+ * @Created by xww on 2018/4/8 0008.
  */
 
 public abstract class BaseActivityImpl<V extends IBaseView, T extends BasePresenterImpl<V>> extends AppCompatActivity

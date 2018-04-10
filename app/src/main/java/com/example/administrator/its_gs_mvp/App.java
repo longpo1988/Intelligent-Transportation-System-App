@@ -4,7 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 /**
- * Created by xww on 2018/4/9 0009.
+ * 全局 Application
+ *
+ * @Created by xww on 2018/4/9 0009.
  */
 
 public class App extends Application {

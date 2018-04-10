@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.administrator.its_gs_mvp.mvp.presenter.BasePresenterImpl;
+import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
 
 /**
  * Fragment 基类
- * Created by xww on 2018/4/8 0008.
+ *
+ * @Created by xww on 2018/4/8 0008.
  */
 
 public abstract class BaseFragmentImpl<V extends IBaseView, T extends BasePresenterImpl<V>> extends Fragment

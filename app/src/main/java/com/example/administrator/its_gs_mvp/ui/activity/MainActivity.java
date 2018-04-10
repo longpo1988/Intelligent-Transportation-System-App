@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.mvp.MainContract;
-import com.example.administrator.its_gs_mvp.mvp.presenter.main.MainPresenterImpl;
+import com.example.administrator.its_gs_mvp.mvp.presenter.MainPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseActivityImpl;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Account;
 
@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
     public void setItems(final Object data) {
         lvMain.setAdapter(new SimpleAdapter(this, (List<? extends Map<String, ?>>) data, R.layout.list_item_main,
                 new String[]{"icon", "name"}, new int[]{R.id.item_main_img, R.id.item_main_name}));
+
         lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -91,6 +92,7 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
                 }
             }
         });
+
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.example.administrator.its_gs_mvp.mvp.presenter.main;
+package com.example.administrator.its_gs_mvp.mvp.presenter;
 
 import android.app.Activity;
 import android.support.v4.widget.DrawerLayout;
@@ -10,10 +10,10 @@ import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.mvp.MainContract;
 import com.example.administrator.its_gs_mvp.mvp.mpdel.CallBack;
 import com.example.administrator.its_gs_mvp.mvp.mpdel.MainModel;
-import com.example.administrator.its_gs_mvp.mvp.presenter.BasePresenterImpl;
+import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
 
 /**
- * Created by xww on 2018/4/8 0008.
+ * @Created by xww on 2018/4/8 0008.
  */
 
 public class MainPresenterImpl extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter
@@ -32,7 +32,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainContract.View> impl
 
     @Override
     public void onDestory() {
-
+        mainModel = null;
     }
 
     @Override

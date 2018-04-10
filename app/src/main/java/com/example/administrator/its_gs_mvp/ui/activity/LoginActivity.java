@@ -1,16 +1,14 @@
 package com.example.administrator.its_gs_mvp.ui.activity;
 
-import android.os.Bundle;
-import android.view.View;
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.mvp.LoginContract;
-import com.example.administrator.its_gs_mvp.mvp.presenter.login.LoginPresenterImpl;
+import com.example.administrator.its_gs_mvp.mvp.presenter.LoginPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseActivityImpl;
 
 import butterknife.BindView;
@@ -18,7 +16,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by xww on 2018/4/9 0009.
+ * 登录注册界面
+ *
+ * @Created by xww on 2018/4/9 0009.
  */
 
 public class LoginActivity extends BaseActivityImpl<LoginContract.View, LoginPresenterImpl>
@@ -57,7 +57,16 @@ public class LoginActivity extends BaseActivityImpl<LoginContract.View, LoginPre
         final String _userName = edtUser.getText().toString().trim();
         final String _userPwd = edtPwd.getText().toString().trim();
         mPresenter.loginTest(_userName, _userPwd);
-        Toast.makeText(this, "登录", Toast.LENGTH_SHORT).show();
     }
 
+    @OnClick(R.id.llayout_netSet)
+    public void ipSettings() {
+        mPresenter.saveIPandPORT();
+    }
+
+    @Override
+    public void loginSucceed() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
+    }
 }

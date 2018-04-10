@@ -1,9 +1,9 @@
-package com.example.administrator.its_gs_mvp.mvp.presenter;
+package com.example.administrator.its_gs_mvp.mvp.presenter.base;
 
 import com.example.administrator.its_gs_mvp.mvp.view.IBaseView;
 
 /**
- * Created by Administrator on 2018/4/8 0008.
+ * @Created by xww on 2018/4/8 0008.
  */
 
 public abstract class BasePresenterImpl<V extends IBaseView> implements IBasePresenter<V> {

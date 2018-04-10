@@ -13,31 +13,20 @@ import com.example.administrator.its_gs_mvp.mvp.mpdel.CallBack;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
 /**
- * Created by xww on 2018/4/9 0009.
+ * Volley 网络框架
+ *
+ * @Created by xww on 2018/4/9 0009.
  */
 
 public class HttpUtil {
 
     private static HttpUtil instance;
-    private OkHttpClient client;
     private Handler handler;
-
     private RequestQueue queue;
 
+
     public HttpUtil() {
-        client = new OkHttpClient();
         handler = new Handler(Looper.getMainLooper());
         queue = Volley.newRequestQueue(App.context);
     }
@@ -45,37 +34,23 @@ public class HttpUtil {
     public static HttpUtil getInstance() {
         if (instance == null) {
             synchronized (HttpUtil.class) {
-                instance = new HttpUtil();
+                if (instance == null) {
+                    instance = new HttpUtil();
+                }
             }
         }
         return instance;
     }
 
-    public void sendPostRequest(String url, RequestBody params, final CallBack.RespCallback callback) {
-        Log.i("---------->url", ": " + url);
-        final Request request = new Request.Builder()
-                .url(url)
-                .post(params)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onSucceed(response);
-                    }
-                });
-            }
-        });
-    }
-
+    /**
+     * 发送 Post 请求
+     *
+     * @param url      URL接口
+     * @param obj      需要的Json参数
+     * @param callback 回调监听
+     */
     public void Request(String url, JSONObject obj, final CallBack.VolleyCallback callback) {
+        Log.i("------------url", "Request: "+url);
         JsonObjectRequest request = new JsonObjectRequest(com.android.volley.Request.Method.POST,
                 url, obj, new com.android.volley.Response.Listener<JSONObject>() {
             @Override
@@ -85,7 +60,6 @@ public class HttpUtil {
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
             }
         });
         queue.add(request);
