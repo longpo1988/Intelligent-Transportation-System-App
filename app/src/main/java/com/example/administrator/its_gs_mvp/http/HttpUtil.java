@@ -1,7 +1,5 @@
 package com.example.administrator.its_gs_mvp.http;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -22,12 +20,10 @@ import org.json.JSONObject;
 public class HttpUtil {
 
     private static HttpUtil instance;
-    private Handler handler;
     private RequestQueue queue;
 
 
     public HttpUtil() {
-        handler = new Handler(Looper.getMainLooper());
         queue = Volley.newRequestQueue(App.context);
     }
 
@@ -50,7 +46,7 @@ public class HttpUtil {
      * @param callback 回调监听
      */
     public void Request(String url, JSONObject obj, final CallBack.VolleyCallback callback) {
-        Log.i("------------url", "Request: "+url);
+        Log.i("--->url", ": "+url);
         JsonObjectRequest request = new JsonObjectRequest(com.android.volley.Request.Method.POST,
                 url, obj, new com.android.volley.Response.Listener<JSONObject>() {
             @Override

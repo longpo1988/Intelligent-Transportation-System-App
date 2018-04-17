@@ -2,6 +2,7 @@ package com.example.administrator.its_gs_mvp.ui.activity;
 
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,18 +11,15 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.mvp.MainContract;
 import com.example.administrator.its_gs_mvp.mvp.presenter.MainPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseActivityImpl;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Account;
-
+import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Life;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 主界面
@@ -54,7 +52,6 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
 
     @Override
     protected void initView() {
-        ButterKnife.bind(this);
         tbMain.setTitle("");
         setSupportActionBar(tbMain);
         drawerMain.setScrimColor(Color.TRANSPARENT);
@@ -71,24 +68,27 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String _name = ((List<? extends Map<String, ?>>) data).get(i).get("name").toString();
                 tvTitle.setText(_name);
+                if (drawerMain.isDrawerOpen(GravityCompat.START)) {
+                    drawerMain.closeDrawer(GravityCompat.START);
+                }
                 if (_name.equals("账户管理")) {
                     rePlace(new Fragment_Account());
                 } else if (_name.equals("公交查询")) {
                     rePlace(new Fragment_Account());
-                }else if (_name.equals("红绿灯管理")) {
+                } else if (_name.equals("红绿灯管理")) {
                     rePlace(new Fragment_Account());
-                }else if (_name.equals("车辆违章")) {
+                } else if (_name.equals("车辆违章")) {
                     rePlace(new Fragment_Account());
-                }else if (_name.equals("路况查询")) {
+                } else if (_name.equals("路况查询")) {
                     rePlace(new Fragment_Account());
-                }else if (_name.equals("生活助手")) {
+                } else if (_name.equals("生活助手")) {
+                    rePlace(new Fragment_Life());
+                } else if (_name.equals("数据分析")) {
                     rePlace(new Fragment_Account());
-                }else if (_name.equals("数据分析")) {
+                } else if (_name.equals("个人中心")) {
                     rePlace(new Fragment_Account());
-                }else if (_name.equals("个人中心")) {
-                    rePlace(new Fragment_Account());
-                }else if (_name.equals("创意")) {
-                    rePlace(new Fragment_Account());
+                } else if (_name.equals("创意")) {
+
                 }
             }
         });

@@ -1,7 +1,5 @@
 package com.example.administrator.its_gs_mvp.mvp.mpdel;
 
-import android.util.Log;
-
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.mvp.MainContract;
 

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/tv_currentTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="64dp"
+                android:text="8°"
+                android:textColor="@color/colorPrimary"
+                android:textSize="100sp" />
+
+            <TextView
+                android:id="@+id/tv_tadayTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="32dp"
+                android:layout_marginRight="64dp"
+                android:text="今天：4~12° C"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp" />
+
+            <ImageButton
+                android:id="@+id/btn_temperatureRefresh"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_life_weahter_refresh" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="昨天"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="今天"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="明天"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="周三"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="16dp"
+                    android:text="周四"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="周五"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart_WeekTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="今日生活指数"
+            android:textColor="@color/colorShallowBlue"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="#DAEDFF">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/icon101" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="72dp"
+                    android:text="紫外线强度"
+                    android:textColor="#3D8FCB" />
+
+                <TextView
+                    android:id="@+id/tv_ziwaixian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="16dp"
+                    android:text="中等(100)"
+                    android:textColor="#3D8FCB"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/tv_ziwaixianAdvice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="56dp"
+                    android:text="涂擦 SPF 大于 15、PA+防晒护肤品"
+                    android:textColor="#969696"
+                    android:textSize="14sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="#DAEDFF">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/icon102" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="72dp"
+                    android:text="感冒指数"
+                    android:textColor="#3D8FCB" />
+
+                <TextView
+                    android:id="@+id/tv_ganmao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="16dp"
+                    android:text="较易发(8)"
+                    android:textColor="#3D8FCB"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/tv_ganmapAdvice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="56dp"
+                    android:text="温度低，风较大，较易发生感冒，注意防护"
+                    android:textColor="#969696"
+                    android:textSize="14sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="#DAEDFF">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/icon103" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="72dp"
+                    android:text="穿衣指数"
+                    android:textColor="#3D8FCB" />
+
+                <TextView
+                    android:id="@+id/tv_chuangyi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="16dp"
+                    android:text="舒适(21)"
+                    android:textColor="#3D8FCB"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/tv_chuangyiAdvice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="56dp"
+                    android:text="建议穿长袖衬衫、单裤等服装"
+                    android:textColor="#969696"
+                    android:textSize="14sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="#DAEDFF">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="72dp"
+                    android:text="运动指数"
+                    android:textColor="#3D8FCB" />
+
+                <TextView
+                    android:id="@+id/tv_yundong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="16dp"
+                    android:text="适宜(2647)"
+                    android:textColor="#3D8FCB"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/tv_yundongAdvice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="56dp"
+                    android:text="气候适宜，推荐您进行户外运动 "
+                    android:textColor="#969696"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/icon104" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="#DAEDFF">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/icon105" />
+
+                <TextView
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="72dp"
+                    android:text="空气污染扩散指数"
+                    android:textColor="#3D8FCB" />
+
+                <TextView
+                    android:id="@+id/tv_kongqiwuran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="16dp"
+                    android:text="优(28)"
+                    android:textColor="#3D8FCB"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/tv_kongqiwuranAdvice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="56dp"
+                    android:text="空气质量非常好，非常适合户外活动，趁机出去多呼吸新鲜空气"
+                    android:textColor="#969696"
+                    android:textSize="14sp" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="整点天气实况"
+                android:textColor="@color/colorShallowBlue"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tv_MinuteMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="56dp"
+                android:background="#C7C7C7"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="过去1分钟空气最差值：98"
+                android:textColor="@color/colorWhite"
+                android:textSize="22sp" />
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_gravity="bottom"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/btn_KongQiZhiLiang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="空气质量"
+                    android:textColor="#878787"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/btn_WenDu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="温度"
+                    android:textColor="#878787"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/btn_XiangDuiShiDu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="相对湿度"
+                    android:textColor="#878787"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/btn_ErYangHuaTan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="二氧化碳"
+                    android:textColor="#878787"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_Life"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="56dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp" />
+        </FrameLayout>
+
+    </LinearLayout>
+</LinearLayout>

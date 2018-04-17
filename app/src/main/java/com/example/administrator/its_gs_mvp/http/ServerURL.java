@@ -16,7 +16,9 @@ public class ServerURL {
     private static String URL = "http://"
             + savedNet.getString("ip", "") + ":"
             + savedNet.getString("port", "")
-            + "/transportservice/action/";
+            + "/ITSservice/";
 
     public final static String USER_LOGIN = URL + "user_login.do";//登录接口
+    public final static String WEATHER_INFO = URL + "GetWeather.do";//天气接口
+    public final static String ENVIONMENT_SENSE = URL + "GetSensor.do";//环境传感器接口
 }

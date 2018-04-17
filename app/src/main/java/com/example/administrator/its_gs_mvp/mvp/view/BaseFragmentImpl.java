@@ -9,6 +9,12 @@ import android.view.ViewGroup;
 
 import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Fragment 基类
  *
@@ -20,27 +26,39 @@ public abstract class BaseFragmentImpl<V extends IBaseView, T extends BasePresen
 
     protected T mPresenter;
 
+    Unbinder unbinder;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mPresenter = initPresenter();
         mPresenter.attachView((V) this);
-        return inflater.inflate(setLayoutId(), container, false);
+        View rootView = inflater.inflate(setLayoutId(), container, false);
+        unbinder = ButterKnife.bind(this, rootView);
+        initView();
+        return rootView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
         mPresenter.onCreate();
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
     public void onDestroy() {
+        super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView(); //释放引用
+            mPresenter.onDestory();
+            mPresenter = null;
         }
-        super.onDestroy();
     }
 
     protected abstract T initPresenter();

@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
 
+import butterknife.ButterKnife;
+
 /**
  * Activity 基类
  *
@@ -24,6 +26,7 @@ public abstract class BaseActivityImpl<V extends IBaseView, T extends BasePresen
         mPresenter = initPresenter();
         mPresenter.attachView((V) this);
         setContentView(setLayoutId());
+        ButterKnife.bind(this);//注解框架绑定控件id
         initView();
         mPresenter.onCreate();
     }
@@ -53,10 +56,11 @@ public abstract class BaseActivityImpl<V extends IBaseView, T extends BasePresen
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView(); //释放引用
             mPresenter.onDestory();
+            mPresenter = null;
         }
-        super.onDestroy();
     }
 }

@@ -26,7 +26,6 @@ public class LoginModel {
             @Override
             public void onSucceed(JSONObject jsonObject) {
                 loginListener.loginResponse(jsonObject);
-                http = null;
             }
         });
     }

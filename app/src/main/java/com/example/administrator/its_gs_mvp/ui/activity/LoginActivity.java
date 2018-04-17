@@ -48,9 +48,7 @@ public class LoginActivity extends BaseActivityImpl<LoginContract.View, LoginPre
     }
 
     @Override
-    protected void initView() {
-        ButterKnife.bind(this);
-    }
+    protected void initView() {}
 
     @OnClick(R.id.btn_login)
     public void doLogin() {
