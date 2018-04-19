@@ -107,7 +107,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
     @Override
     public void loginResponse(JSONObject jsonObject) {
         try {
-            if (jsonObject.getString("result").equals("S")) {
+            if (jsonObject.getInt("code") == 1) {
                 mView.loginSucceed();
                 Toast.makeText(mView.getContext(), "登录成功", Toast.LENGTH_SHORT).show();
             } else if (jsonObject.getString("result").equals("F")) {

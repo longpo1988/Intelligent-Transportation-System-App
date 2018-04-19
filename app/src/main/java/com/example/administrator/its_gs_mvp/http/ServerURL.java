@@ -18,7 +18,9 @@ public class ServerURL {
             + savedNet.getString("port", "")
             + "/ITSservice/";
 
-    public final static String USER_LOGIN = URL + "user_login.do";//登录接口
+    public final static String USER_LOGIN = URL + "userLogin.do";//登录接口
     public final static String WEATHER_INFO = URL + "GetWeather.do";//天气接口
     public final static String ENVIONMENT_SENSE = URL + "GetSensor.do";//环境传感器接口
+    public final static String GETTRAFFICLIGHTCONFIG = URL + "GetTrafficLightConfig.do";//获取红绿灯配置信息接口
+    public final static String SETTRAFFICLIGHTCONFIG = URL + "SetTrafficLightConfig.do";//设置红绿灯配置信息接口
 }
