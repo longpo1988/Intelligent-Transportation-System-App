@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.bean.SenseBean;
@@ -47,10 +48,21 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
     public void onCreate() {
         lifeModel.getFragmentList(this);
         lifeModel.getWeather(this);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                lifeModel.getEnvSense(LifePresenterImpl.this);
+            }
+        }, 1, 3000);
     }
 
     @Override
     public void onDestory() {
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+            timer = null;
+        }
         lifeModel = null;
     }
 
@@ -72,33 +84,34 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
                  * bean.get(1) 获取的是未来今天的温度范围
                  */
                 WeatherBean bean = gson.fromJson(jsonObject.toString(), WeatherBean.class);
-                mTemp = bean.getData().get(0).getTodayTemp();
-                /**
-                 * get(1).get(1) 获取的是第二天的数据
-                 */
-                mAreaTemp = bean.getData().get(1).getDetail().get(1).getTempRange();
+                if (bean != null) {
+                    mTemp = bean.getData().get(0).getTodayTemp();
+                    /**
+                     * get(1).get(1) 获取的是第二天的数据
+                     */
+                    mAreaTemp = bean.getData().get(1).getDetail().get(1).getTempRange();
 
-                /**
-                 设置今天温度数据
-                 */
-                mView.setTodayTemperture(mTemp, mAreaTemp);
+                    /**
+                     设置今天温度数据
+                     */
+                    mView.setTodayTemperture(mTemp, mAreaTemp);
 
-                List<Integer> tempMax = new ArrayList<>();
-                List<Integer> tempMin = new ArrayList<>();
-                List<WeatherBean.DataBean.DetailBean> rows_detailsList = bean.getData().get(1).getDetail();
-                for (int i = 0; i < rows_detailsList.size(); i++) {
-                    String _areaTemp = rows_detailsList.get(i).getTempRange();
-                    String[] _Temp = _areaTemp.split("~");
-                    int _min = Integer.valueOf(_Temp[0]);
-                    int _max = Integer.valueOf(_Temp[1]);
-                    tempMin.add(_min);
-                    tempMax.add(_max);
+                    List<Integer> tempMax = new ArrayList<>();
+                    List<Integer> tempMin = new ArrayList<>();
+                    List<WeatherBean.DataBean.DetailBean> rows_detailsList = bean.getData().get(1).getDetail();
+                    for (int i = 0; i < rows_detailsList.size(); i++) {
+                        String _areaTemp = rows_detailsList.get(i).getTempRange();
+                        String[] _Temp = _areaTemp.split("~");
+                        int _min = Integer.valueOf(_Temp[0]);
+                        int _max = Integer.valueOf(_Temp[1]);
+                        tempMin.add(_min);
+                        tempMax.add(_max);
+                    }
+                    /**
+                     设置未来几天温度折线图数据
+                     */
+                    mView.setWeekTempLine(tempMax, tempMin);
                 }
-                /**
-                 设置未来几天温度折线图数据
-                 */
-                mView.setWeekTempLine(tempMax, tempMin);
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -114,16 +127,18 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
         try {
             if (jsonObject.getInt("code") == 1) {
                 SenseBean bean = gson.fromJson(jsonObject.toString(), SenseBean.class);
-                int temp = bean.getData().get(0).getTemperature();
-                int humd = bean.getData().get(0).getHumidity();
-                int co2 = bean.getData().get(0).getCo2();
-                int light = bean.getData().get(0).getLightIntensity();
-                int pm = bean.getData().get(0).getPm25();
+                if (bean != null) {
+                    int temp = bean.getData().get(0).getTemperature();
+                    int humd = bean.getData().get(0).getHumidity();
+                    int co2 = bean.getData().get(0).getCo2();
+                    int light = bean.getData().get(0).getLightIntensity();
+                    int pm = bean.getData().get(0).getPm25();
 
-                setLivingIndex(temp, humd, co2, light, pm);
-                selectMaxVaule(temp, humd, co2, light, pm);
+                    setLivingIndex(temp, humd, co2, light, pm);
+                    selectMaxVaule(temp, humd, co2, light, pm);
 
-                EventBus.getDefault().post(new SenseEvent(temp, humd, co2, pm, light));
+                    EventBus.getDefault().post(new SenseEvent(temp, humd, co2, pm, light));
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -226,26 +241,6 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
         lifeModel.getWeather(this);
     }
 
-    @Override
-    public void startSenseTask() {
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                lifeModel.getEnvSense(LifePresenterImpl.this);
-            }
-        }, 1, 3000);
-    }
-
-    @Override
-    public void cancelSenseTask() {
-        if (timer != null) {
-            timer.cancel();
-            timer.purge();
-            timer = null;
-        }
-    }
-
-
     private int maxTemp;
     private int minTemp;
     private int maxPM25;
@@ -289,33 +284,32 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
         switch (position) {
             case 0:
                 vpLife.setCurrentItem(0);
-                airQuality.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border));
-                temp.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                humd.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                co2.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
+                airQuality.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life));
+                temp.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                humd.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                co2.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
                 break;
             case 1:
                 vpLife.setCurrentItem(1);
-                airQuality.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                temp.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border));
-                humd.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                co2.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
+                airQuality.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                temp.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life));
+                humd.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                co2.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
                 break;
             case 2:
                 vpLife.setCurrentItem(2);
-                airQuality.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                temp.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                humd.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border));
-                co2.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
+                airQuality.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                temp.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                humd.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life));
+                co2.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
                 break;
             case 3:
                 vpLife.setCurrentItem(3);
-                airQuality.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                temp.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                humd.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_null));
-                co2.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.life_border_2));
+                airQuality.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                temp.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                humd.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_null));
+                co2.setBackgroundDrawable(ContextCompat.getDrawable(mView.getContext(), R.drawable.border_life_2));
                 break;
         }
     }
-
 }

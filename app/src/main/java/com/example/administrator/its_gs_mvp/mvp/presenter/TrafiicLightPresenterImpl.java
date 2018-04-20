@@ -62,15 +62,17 @@ public class TrafiicLightPresenterImpl extends BasePresenterImpl<TrafiicLightCon
                  * 服务器返回数据，进行解析
                  */
                 TrafficLightBean bean = new Gson().fromJson(jsonObject.toString(), TrafficLightBean.class);
-                trafficLightBeanList.add(bean);
-                /**
-                 * 进行排序
-                 */
-                SetSortTrafficLight();
-                /**
-                 * 设置显示
-                 */
-                mView.setAdapter(trafficLightBeanList);
+                if (bean != null) {
+                    trafficLightBeanList.add(bean);
+                    /**
+                     * 进行排序
+                     */
+                    SetSortTrafficLight();
+                    /**
+                     * 设置显示
+                     */
+                    mView.setAdapter(trafficLightBeanList);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -93,12 +95,12 @@ public class TrafiicLightPresenterImpl extends BasePresenterImpl<TrafiicLightCon
     }
 
     @Override
-    public void setTrafficLightId(List<Integer> idList) {
+    public void setTrafficLightId() {
         /**
          * 让Model去获取网络数据
          */
-        for (int i = 0; i < idList.size(); i++) {
-            trafficLightModel.getTrafficLightConfig(idList.get(i), this);
+        for (int i = 1; i < 6; i++) {
+            trafficLightModel.getTrafficLightConfig(i, this);
         }
     }
 

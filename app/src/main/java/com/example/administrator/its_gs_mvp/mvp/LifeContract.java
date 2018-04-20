@@ -35,11 +35,6 @@ public class LifeContract {
 
     public interface Presenter extends IBasePresenter<View> {
         void onRefreshingTemp();
-
-        void startSenseTask();
-
-        void cancelSenseTask();
-
         /**
          * @param position   viewPager的position
          * @param airQuality 空气质量textview点击按钮

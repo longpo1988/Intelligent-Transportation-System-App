@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_roadstate"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="720dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_kuaisuTop"
+            android:layout_width="590dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="环城快速路"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_kuaisuLeft1"
+            android:layout_width="35dp"
+            android:layout_height="320dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="环城快速路"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_kuaisuLeft2"
+            android:layout_width="35dp"
+            android:layout_height="290dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="345dp"
+            android:gravity="center"
+            android:text="环城快速路"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_kuaisuBottom"
+            android:layout_width="590dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="600dp"
+            android:gravity="center"
+            android:text="环城快速路"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_gaosu"
+            android:layout_width="35dp"
+            android:layout_height="610dp"
+            android:layout_marginLeft="665dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="环城高速"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_xueyuan"
+            android:layout_width="35dp"
+            android:layout_height="240dp"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="学院路"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_xingfu"
+            android:layout_width="35dp"
+            android:layout_height="240dp"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="360dp"
+            android:gravity="center"
+            android:text="幸福路"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_yiyuan"
+            android:layout_width="35dp"
+            android:layout_height="240dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="360dp"
+            android:gravity="center"
+            android:text="医院路"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_zhongyang"
+            android:layout_width="320dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="315dp"
+            android:gravity="center"
+            android:text="中央大道"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_tingchechang"
+            android:layout_width="110dp"
+            android:layout_height="180dp"
+            android:layout_marginLeft="470dp"
+            android:layout_marginTop="240dp"
+            android:gravity="center"
+            android:text="停车场"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_lianxiang"
+            android:layout_width="35dp"
+            android:layout_height="240dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="联想路"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="80dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_Year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-6-7"
+                    android:textSize="45sp" />
+
+                <TextView
+                    android:id="@+id/tv_Week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="星期三"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_Refreshing"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="16dp"
+                        android:src="@drawable/ic_life_weahter_refresh" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_Temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="温度：18°C"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/tv_Humd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="相对湿度：58%"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/tv_PM25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="PM2.5：25ug/m3"
+                    android:textSize="25sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="拥挤程度示意图："
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="畅通" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:background="#6ab82e" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="缓行" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:background="#ece93a" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="少堵" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:background="#f49b25" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="拥堵" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:background="#e33532" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="爆满" />
+
+                    <TextView
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:background="#b01e23" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_pliceMan"
+                    android:layout_width="120dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/img_roadstate_police_man_1" />
+
+                <ImageView
+                    android:id="@+id/iv_pliceGirl"
+                    android:layout_width="120dp"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/img_roadstate_police_girl_1" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

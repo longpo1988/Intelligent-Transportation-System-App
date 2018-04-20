@@ -28,7 +28,7 @@ public class TrafiicLightContract {
         /**
          * 设置要传的 trafficLightID 编号
          */
-        void setTrafficLightId(List<Integer> idList);
+        void setTrafficLightId();
 
         /**
          * 依据Spainer设置排序

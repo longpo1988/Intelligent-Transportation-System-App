@@ -60,11 +60,7 @@ public class Fragment_TrafiicLight extends BaseFragmentImpl<TrafiicLightContract
         /**
          * 添加要获取的红绿灯 id ，这个方法将会开启网络访问数据
          */
-        List<Integer> idList = new ArrayList<>();
-        for (int i = 1; i < 6; i++) {
-            idList.add(i);
-        }
-        mPresenter.setTrafficLightId(idList);
+        mPresenter.setTrafficLightId();
     }
 
     @Override

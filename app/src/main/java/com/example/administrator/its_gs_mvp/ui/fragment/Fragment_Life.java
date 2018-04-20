@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.adapter.BaseFragmentAdapter;
 import com.example.administrator.its_gs_mvp.mvp.LifeContract;
@@ -18,10 +17,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -108,18 +105,6 @@ public class Fragment_Life extends BaseFragmentImpl<LifeContract.View, LifePrese
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mPresenter.startSenseTask();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mPresenter.cancelSenseTask();
-    }
-
-    @Override
     public void setAdapter(List<Fragment> fragmentList) {
         vpLife.setOffscreenPageLimit(4);
         FragmentManager manager = getChildFragmentManager();
@@ -139,8 +124,7 @@ public class Fragment_Life extends BaseFragmentImpl<LifeContract.View, LifePrese
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-            }
+            public void onPageScrollStateChanged(int state) {}
         });
     }
 

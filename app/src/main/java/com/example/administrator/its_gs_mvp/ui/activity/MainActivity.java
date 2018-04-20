@@ -17,6 +17,7 @@ import com.example.administrator.its_gs_mvp.mvp.presenter.MainPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseActivityImpl;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Account;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Life;
+import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_RoadState;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_TrafiicLight;
 
 import java.util.List;
@@ -82,7 +83,7 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
                 } else if (_name.equals("车辆违章")) {
                     rePlace(new Fragment_Account());
                 } else if (_name.equals("路况查询")) {
-                    rePlace(new Fragment_Account());
+                    rePlace(new Fragment_RoadState());
                 } else if (_name.equals("生活助手")) {
                     rePlace(new Fragment_Life());
                 } else if (_name.equals("数据分析")) {

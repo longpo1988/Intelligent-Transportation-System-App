@@ -23,4 +23,5 @@ public class ServerURL {
     public final static String ENVIONMENT_SENSE = URL + "GetSensor.do";//环境传感器接口
     public final static String GETTRAFFICLIGHTCONFIG = URL + "GetTrafficLightConfig.do";//获取红绿灯配置信息接口
     public final static String SETTRAFFICLIGHTCONFIG = URL + "SetTrafficLightConfig.do";//设置红绿灯配置信息接口
+    public final static String GETROADSTATUS = URL + "GetRoadStatus.do";//获取道路状态接口
 }

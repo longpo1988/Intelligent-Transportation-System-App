@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/trafficlight_border"
+            android:background="@drawable/border_trafficlight"
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="22sp" />
@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/trafficlight_border"
+            android:background="@drawable/border_trafficlight"
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="22sp" />
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/trafficlight_border"
+            android:background="@drawable/border_trafficlight"
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="22sp" />
@@ -50,7 +50,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/trafficlight_border"
+            android:background="@drawable/border_trafficlight"
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="22sp" />
@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/trafficlight_border">
+            android:background="@drawable/border_trafficlight">
 
             <CheckBox
                 android:id="@+id/tl_Selected"
@@ -73,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:background="@drawable/trafficlight_border">
+            android:background="@drawable/border_trafficlight">
 
             <Button
                 android:id="@+id/tl_Setting"
