@@ -1,7 +1,9 @@
 package com.example.administrator.its_gs_mvp.event;
 
 /**
- * Created by xww on 2018/4/12 0012.
+ * 生活助手：折线图数据 EventBus事件
+ *
+ * @Created by xww on 2018/4/12 0012.
  */
 
 public class SenseEvent {

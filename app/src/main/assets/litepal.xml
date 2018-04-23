@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="its.db" />
+    <version value="2" />
+    <List>
+        <mapping class="com.example.administrator.its_gs_mvp.db.CarPeccancy" />
+        <mapping class="com.example.administrator.its_gs_mvp.db.PeccancyCard" />
+    </List>
+</litepal>

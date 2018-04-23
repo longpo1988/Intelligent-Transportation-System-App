@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.bean.SenseBean;

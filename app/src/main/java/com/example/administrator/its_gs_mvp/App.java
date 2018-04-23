@@ -3,6 +3,8 @@ package com.example.administrator.its_gs_mvp;
 import android.app.Application;
 import android.content.Context;
 
+import org.litepal.LitePalApplication;
+
 /**
  * 全局 Application
  *
@@ -17,5 +19,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        LitePalApplication.initialize(context);
     }
 }

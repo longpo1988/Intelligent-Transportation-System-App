@@ -11,17 +11,25 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
 import com.example.administrator.its_gs_mvp.R;
+import com.example.administrator.its_gs_mvp.event.FragmentEvent;
 import com.example.administrator.its_gs_mvp.mvp.MainContract;
 import com.example.administrator.its_gs_mvp.mvp.presenter.MainPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseActivityImpl;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Account;
+import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_CarPeccancy;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Life;
+import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_PeccancyPhoto;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_RoadState;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_TrafiicLight;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 import java.util.Map;
+
 import butterknife.BindView;
 
 /**
@@ -81,7 +89,7 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
                 } else if (_name.equals("红绿灯管理")) {
                     rePlace(new Fragment_TrafiicLight());
                 } else if (_name.equals("车辆违章")) {
-                    rePlace(new Fragment_Account());
+                    rePlace(new Fragment_CarPeccancy());
                 } else if (_name.equals("路况查询")) {
                     rePlace(new Fragment_RoadState());
                 } else if (_name.equals("生活助手")) {
@@ -89,13 +97,34 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
                 } else if (_name.equals("数据分析")) {
                     rePlace(new Fragment_Account());
                 } else if (_name.equals("个人中心")) {
-                    rePlace(new Fragment_Account());
+                    rePlace(new Fragment_PeccancyPhoto());
                 } else if (_name.equals("创意")) {
 
                 }
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 切换子碎片
+     */
+    @Subscribe
+    public void rePlaceChild(FragmentEvent event) {
+        tvTitle.setText(event.getTitle());
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainContent, event.getFragment()).commit();
     }
 
     /**

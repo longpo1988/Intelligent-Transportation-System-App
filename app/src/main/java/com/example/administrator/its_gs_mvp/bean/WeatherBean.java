@@ -3,6 +3,8 @@ package com.example.administrator.its_gs_mvp.bean;
 import java.util.List;
 
 /**
+ * 天气 实体类
+ *
  * @Created by xww on 2018/4/12 0012.
  */
 

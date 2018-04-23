@@ -3,6 +3,8 @@ package com.example.administrator.its_gs_mvp.bean;
 import java.util.List;
 
 /**
+ * 红绿灯 实体类
+ *
  * @Created by xww on 2018/4/18 0018.
  */
 

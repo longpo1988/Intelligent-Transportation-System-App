@@ -3,7 +3,9 @@ package com.example.administrator.its_gs_mvp.bean;
 import java.util.List;
 
 /**
- * Created by xww on 2018/4/16 0016.
+ * 环境传感器 实体类
+ *
+ * @Created by xww on 2018/4/16 0016.
  */
 
 public class SenseBean {

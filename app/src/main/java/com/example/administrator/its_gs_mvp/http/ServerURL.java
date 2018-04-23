@@ -24,4 +24,6 @@ public class ServerURL {
     public final static String GETTRAFFICLIGHTCONFIG = URL + "GetTrafficLightConfig.do";//获取红绿灯配置信息接口
     public final static String SETTRAFFICLIGHTCONFIG = URL + "SetTrafficLightConfig.do";//设置红绿灯配置信息接口
     public final static String GETROADSTATUS = URL + "GetRoadStatus.do";//获取道路状态接口
+    public final static String GETALLCARPECCANCY = URL + "GetAllCarPeccancy.do";//获取所有车辆违章接口
+    public final static String GETPECCANCYCODE = URL + "GetPeccancyCode.do";//获取违章代码接口
 }

@@ -3,6 +3,7 @@ package com.example.administrator.its_gs_mvp.bean;
 import java.util.List;
 
 /**
+ * 道路状态 实体类
  * @Created by xww on 2018/4/20 0020.
  */
 
