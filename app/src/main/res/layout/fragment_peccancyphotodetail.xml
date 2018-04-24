@@ -9,7 +9,7 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <ImageView
+        <com.example.administrator.its_gs_mvp.ui.custom.ZoomImageView
             android:id="@+id/img_detail"
             android:layout_width="800dp"
             android:layout_height="600dp"

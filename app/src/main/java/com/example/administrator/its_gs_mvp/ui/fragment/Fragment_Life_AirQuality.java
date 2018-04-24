@@ -106,5 +106,4 @@ public class Fragment_Life_AirQuality extends BaseFragment {
         barChartPM.setData(barData);
         barChartPM.invalidate();
     }
-
 }

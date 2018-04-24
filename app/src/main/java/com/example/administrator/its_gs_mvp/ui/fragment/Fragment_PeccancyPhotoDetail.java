@@ -6,8 +6,6 @@ import android.widget.ImageView;
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.event.FragmentEvent;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseFragment;
-import com.example.administrator.its_gs_mvp.ui.listener.OnTouchListener;
-import com.example.administrator.its_gs_mvp.ui.listener.TEST;
 
 import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
@@ -49,8 +47,6 @@ public class Fragment_PeccancyPhotoDetail extends BaseFragment {
                 imgDetail.setImageResource(R.drawable.weizhang04);
                 break;
         }
-//        imgDetail.setOnTouchListener(new OnTouchListener(imgDetail));
-        imgDetail.setOnTouchListener(new TEST(imgDetail));
     }
 
     @OnClick(R.id.btn_Back)

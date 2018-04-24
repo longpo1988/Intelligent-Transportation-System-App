@@ -110,5 +110,4 @@ public class Fragment_Life_Temperature extends BaseFragment {
         lineChartTemperature.setData(lineData);
         lineChartTemperature.invalidate();
     }
-
 }

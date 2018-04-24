@@ -57,7 +57,6 @@ public class CarPeccancyPresenterImpl extends BasePresenterImpl<CarPeccancyContr
                             peccancy.save();
                         }
                     }
-
                 }
             }
         } catch (JSONException e) {

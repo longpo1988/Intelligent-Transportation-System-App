@@ -35,9 +35,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
     }
 
     @Override
-    public void onCreate() {
-
-    }
+    public void onCreate() {}
 
     @Override
     public void onDestory() {
@@ -57,7 +55,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
 
     @Override
     public void saveIPandPORT() {
-        /*
+        /**
            初始化对话框
         */
         final AlertDialog dialog = new AlertDialog.Builder(mView.getContext()).create();
@@ -70,7 +68,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-        /*
+        /**
            加载已保存ip和port
         */
         SharedPreferences savedNet = App.context.getSharedPreferences("Setting", Context.MODE_PRIVATE);
@@ -85,7 +83,6 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
                 dialog.dismiss();
             }
         });
-
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +98,6 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
                 dialog.dismiss();
             }
         });
-
     }
 
     @Override
@@ -119,5 +115,4 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
             e.printStackTrace();
         }
     }
-
 }

@@ -31,13 +31,7 @@ public class RoadStateModel {
     }
 
     public void getEnvSense(final RoadStateContract.Model callback) {
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("UserName", "user1");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        http.Request(ServerURL.ENVIONMENT_SENSE, obj, new CallBack.VolleyCallback() {
+        http.Request(ServerURL.ENVIONMENT_SENSE, null, new CallBack.VolleyCallback() {
             @Override
             public void onSucceed(JSONObject jsonObject) {
                 callback.onCallbackGetSensor(jsonObject);

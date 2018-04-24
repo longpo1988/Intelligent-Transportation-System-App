@@ -75,21 +75,19 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
      */
     @Override
     public void getWeather(JSONObject jsonObject) {
-        Gson gson = new Gson();
         try {
             if (jsonObject.getInt("code") == 1) {
                 /**
                  * bean.get(0) 获取的是今天温度
                  * bean.get(1) 获取的是未来今天的温度范围
                  */
-                WeatherBean bean = gson.fromJson(jsonObject.toString(), WeatherBean.class);
+                WeatherBean bean = new Gson().fromJson(jsonObject.toString(), WeatherBean.class);
                 if (bean != null) {
                     mTemp = bean.getData().get(0).getTodayTemp();
                     /**
                      * get(1).get(1) 获取的是第二天的数据
                      */
                     mAreaTemp = bean.getData().get(1).getDetail().get(1).getTempRange();
-
                     /**
                      设置今天温度数据
                      */
@@ -122,10 +120,9 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
      */
     @Override
     public void getSense(JSONObject jsonObject) {
-        Gson gson = new Gson();
         try {
             if (jsonObject.getInt("code") == 1) {
-                SenseBean bean = gson.fromJson(jsonObject.toString(), SenseBean.class);
+                SenseBean bean = new Gson().fromJson(jsonObject.toString(), SenseBean.class);
                 if (bean != null) {
                     int temp = bean.getData().get(0).getTemperature();
                     int humd = bean.getData().get(0).getHumidity();
