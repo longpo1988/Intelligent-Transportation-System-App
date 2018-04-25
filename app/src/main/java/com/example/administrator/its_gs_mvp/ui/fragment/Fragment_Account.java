@@ -28,7 +28,7 @@ public class Fragment_Account extends BaseFragmentImpl<AccountContract.View, Acc
 
     @Override
     protected void initView( ) {
-
+//
     }
 
 }
