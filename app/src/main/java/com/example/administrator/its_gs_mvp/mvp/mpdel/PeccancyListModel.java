@@ -3,7 +3,6 @@ package com.example.administrator.its_gs_mvp.mvp.mpdel;
 import com.example.administrator.its_gs_mvp.http.HttpUtil;
 import com.example.administrator.its_gs_mvp.http.ServerURL;
 import com.example.administrator.its_gs_mvp.mvp.PeccancyListContract;
-
 import org.json.JSONObject;
 
 /**
@@ -12,7 +11,6 @@ import org.json.JSONObject;
 
 public class PeccancyListModel {
     HttpUtil http = HttpUtil.getInstance();
-
     public void getPeccancyCode(final PeccancyListContract.Model callback) {
         http.Request(ServerURL.GETPECCANCYCODE, null, new CallBack.VolleyCallback() {
             @Override

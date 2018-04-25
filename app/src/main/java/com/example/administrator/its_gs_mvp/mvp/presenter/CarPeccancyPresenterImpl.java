@@ -21,7 +21,7 @@ public class CarPeccancyPresenterImpl extends BasePresenterImpl<CarPeccancyContr
         implements CarPeccancyContract.Presenter, CarPeccancyContract.Model {
 
     private CarPeccancyModel carPeccancyModel;
-    private static CarPeccancyBean carPeccancyBean;
+    private CarPeccancyBean carPeccancyBean;
 
     public CarPeccancyPresenterImpl() {
         carPeccancyModel = new CarPeccancyModel();
@@ -34,7 +34,6 @@ public class CarPeccancyPresenterImpl extends BasePresenterImpl<CarPeccancyContr
 
     @Override
     public void onDestory() {
-        carPeccancyModel = null;
     }
 
     @Override

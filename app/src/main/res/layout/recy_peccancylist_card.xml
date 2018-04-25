@@ -2,16 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/ripple_peccancylist_card"
+    android:clickable="true"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/btn_ItemView"
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/ripple_peccancylist_card"
-        android:clickable="true"
         android:orientation="horizontal">
 
         <LinearLayout

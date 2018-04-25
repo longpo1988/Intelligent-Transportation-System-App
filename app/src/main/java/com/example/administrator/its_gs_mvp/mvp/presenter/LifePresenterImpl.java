@@ -14,6 +14,7 @@ import com.example.administrator.its_gs_mvp.mvp.LifeContract;
 import com.example.administrator.its_gs_mvp.mvp.mpdel.CallBack;
 import com.example.administrator.its_gs_mvp.mvp.mpdel.LifeModel;
 import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
+import com.example.administrator.its_gs_mvp.util.LoadingDialog;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,6 +47,7 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
     @Override
     public void onCreate() {
         lifeModel.getFragmentList(this);
+        LoadingDialog.showDialog(mView.getContext());
         lifeModel.getWeather(this);
         timer.schedule(new TimerTask() {
             @Override
@@ -62,7 +64,6 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
             timer.purge();
             timer = null;
         }
-        lifeModel = null;
     }
 
     @Override
@@ -77,6 +78,7 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
     public void getWeather(JSONObject jsonObject) {
         try {
             if (jsonObject.getInt("code") == 1) {
+                LoadingDialog.disDialog();
                 /**
                  * bean.get(0) 获取的是今天温度
                  * bean.get(1) 获取的是未来今天的温度范围
@@ -91,7 +93,9 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
                     /**
                      设置今天温度数据
                      */
-                    mView.setTodayTemperture(mTemp, mAreaTemp);
+                    if (mView != null) {
+                        mView.setTodayTemperture(mTemp, mAreaTemp);
+                    }
 
                     List<Integer> tempMax = new ArrayList<>();
                     List<Integer> tempMin = new ArrayList<>();
@@ -107,7 +111,9 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
                     /**
                      设置未来几天温度折线图数据
                      */
-                    mView.setWeekTempLine(tempMax, tempMin);
+                    if (mView != null) {
+                        mView.setWeekTempLine(tempMax, tempMin);
+                    }
                 }
             }
         } catch (JSONException e) {
@@ -227,13 +233,16 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
                 !TextUtils.isEmpty(lightIndex) || !TextUtils.isEmpty(pmIndex) || !TextUtils.isEmpty(tempTips) ||
                 !TextUtils.isEmpty(humdTips) || !TextUtils.isEmpty(co2Tips) || !TextUtils.isEmpty(lightTips) ||
                 !TextUtils.isEmpty(pmTips)) {
-            mView.setLivingIndex(tempIndex, humdIndex, co2Index, lightIndex, pmIndex,
-                    tempTips, humdTips, co2Tips, lightTips, pmTips);
+            if (mView != null) {
+                mView.setLivingIndex(tempIndex, humdIndex, co2Index, lightIndex, pmIndex,
+                        tempTips, humdTips, co2Tips, lightTips, pmTips);
+            }
         }
     }
 
     @Override
     public void onRefreshingTemp() {
+        LoadingDialog.showDialog(mView.getContext());
         lifeModel.getWeather(this);
     }
 
@@ -270,7 +279,9 @@ public class LifePresenterImpl extends BasePresenterImpl<LifeContract.View>
                 maxPM25 = pm;
             }
         }
-        mView.setOneMinuteMaxValue(maxTemp, minTemp, maxCO2, maxPM25, maxHumd);
+        if (mView != null) {
+            mView.setOneMinuteMaxValue(maxTemp, minTemp, maxCO2, maxPM25, maxHumd);
+        }
     }
 
 

@@ -5,7 +5,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
 import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.mvp.MainContract;
 import com.example.administrator.its_gs_mvp.mvp.mpdel.CallBack;
@@ -32,7 +31,6 @@ public class MainPresenterImpl extends BasePresenterImpl<MainContract.View> impl
 
     @Override
     public void onDestory() {
-        mainModel = null;
     }
 
     @Override

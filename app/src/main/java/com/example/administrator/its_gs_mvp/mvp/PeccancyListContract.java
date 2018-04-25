@@ -22,14 +22,10 @@ public class PeccancyListContract {
     public interface Presenter extends IBasePresenter<View> {
         /**
          * 添加需要查询的车牌号
+         *
          * @param carNumber
          */
-        void addCarNumber(String carNumber);
-
-        /**
-         * 添加违章卡片详情数据（适配器数据）
-         */
-        void addCardDetailData();
+        void addCarNumber(String carNumber, boolean isCardRefresh);
     }
 
     public interface Model {

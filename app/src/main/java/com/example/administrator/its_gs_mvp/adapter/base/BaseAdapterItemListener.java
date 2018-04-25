@@ -1,4 +1,4 @@
-package com.example.administrator.its_gs_mvp.adapter;
+package com.example.administrator.its_gs_mvp.adapter.base;
 
 /**
  * recylerview 点击事件

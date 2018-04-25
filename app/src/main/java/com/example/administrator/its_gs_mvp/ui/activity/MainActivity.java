@@ -18,7 +18,7 @@ import com.example.administrator.its_gs_mvp.mvp.MainContract;
 import com.example.administrator.its_gs_mvp.mvp.presenter.MainPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseActivityImpl;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Account;
-import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_CarPeccancy;
+import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Peccancy;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Life;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_PeccancyPhoto;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_RoadState;
@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
                 } else if (_name.equals("红绿灯管理")) {
                     rePlace(new Fragment_TrafiicLight());
                 } else if (_name.equals("车辆违章")) {
-                    rePlace(new Fragment_CarPeccancy());
+                    rePlace(new Fragment_Peccancy());
                 } else if (_name.equals("路况查询")) {
                     rePlace(new Fragment_RoadState());
                 } else if (_name.equals("生活助手")) {

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.example.administrator.its_gs_mvp.R;
-import com.example.administrator.its_gs_mvp.adapter.BaseFragmentAdapter;
+import com.example.administrator.its_gs_mvp.adapter.base.BaseFragmentAdapter;
 import com.example.administrator.its_gs_mvp.mvp.LifeContract;
 import com.example.administrator.its_gs_mvp.mvp.presenter.LifePresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseFragmentImpl;

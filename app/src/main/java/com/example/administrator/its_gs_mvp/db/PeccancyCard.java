@@ -3,7 +3,7 @@ package com.example.administrator.its_gs_mvp.db;
 import org.litepal.crud.DataSupport;
 
 /**
- * 违章详情-违章卡片
+ * 违章详情-违章卡片 表
  *
  * @Created by xww on 2018/4/23 0023.
  */

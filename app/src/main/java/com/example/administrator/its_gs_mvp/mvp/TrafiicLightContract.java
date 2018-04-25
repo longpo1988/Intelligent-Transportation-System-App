@@ -14,10 +14,6 @@ import java.util.List;
 
 public class TrafiicLightContract {
     public interface View extends IBaseView {
-        /**
-         * 添加要获取的红绿灯编号
-         */
-        void addTrafficLightID();
 
         void setAdapter(List<TrafficLightBean> trafficLightBeanList);
 
@@ -25,11 +21,6 @@ public class TrafiicLightContract {
     }
 
     public interface Presenter extends IBasePresenter<View> {
-        /**
-         * 设置要传的 trafficLightID 编号
-         */
-        void setTrafficLightId();
-
         /**
          * 依据Spainer设置排序
          *

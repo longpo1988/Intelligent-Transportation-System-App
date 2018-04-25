@@ -20,7 +20,7 @@ import butterknife.OnClick;
  * @Created by xww on 2018/4/20 0020.
  */
 
-public class Fragment_CarPeccancy extends BaseFragmentImpl<CarPeccancyContract.View, CarPeccancyPresenterImpl>
+public class Fragment_Peccancy extends BaseFragmentImpl<CarPeccancyContract.View, CarPeccancyPresenterImpl>
         implements CarPeccancyContract.View {
 
     @BindView(R.id.edt_carNumber)

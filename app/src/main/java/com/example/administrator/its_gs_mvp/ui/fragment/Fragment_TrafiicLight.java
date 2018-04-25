@@ -6,8 +6,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.administrator.its_gs_mvp.R;
-import com.example.administrator.its_gs_mvp.adapter.BaseAdapterItemListener;
 import com.example.administrator.its_gs_mvp.adapter.TrafficLightAdapter;
+import com.example.administrator.its_gs_mvp.adapter.base.BaseAdapterItemListener;
 import com.example.administrator.its_gs_mvp.bean.TrafficLightBean;
 import com.example.administrator.its_gs_mvp.mvp.TrafiicLightContract;
 import com.example.administrator.its_gs_mvp.mvp.presenter.TrafiicLightPresenterImpl;
@@ -37,8 +37,6 @@ public class Fragment_TrafiicLight extends BaseFragmentImpl<TrafiicLightContract
     @BindView(R.id.rv_TrafficLight)
     RecyclerView rvTrafficLight;
 
-    private TrafficLightAdapter trafficLightAdapter;
-
     @Override
     protected TrafiicLightPresenterImpl initPresenter() {
         return new TrafiicLightPresenterImpl();
@@ -56,18 +54,10 @@ public class Fragment_TrafiicLight extends BaseFragmentImpl<TrafiicLightContract
     }
 
     @Override
-    public void addTrafficLightID() {
-        /**
-         * 添加要获取的红绿灯 id ，这个方法将会开启网络访问数据
-         */
-        mPresenter.setTrafficLightId();
-    }
-
-    @Override
     public void setAdapter(final List<TrafficLightBean> trafficLightBeanList) {
-        trafficLightAdapter = new TrafficLightAdapter(trafficLightBeanList);
-        rvTrafficLight.setAdapter(trafficLightAdapter);
-        trafficLightAdapter.setOnCheckedListener(new BaseAdapterItemListener.onCheckedListener() {
+        TrafficLightAdapter adapter = new TrafficLightAdapter(getContext(), trafficLightBeanList);
+        rvTrafficLight.setAdapter(adapter);
+        adapter.setOnCheckedListener(new BaseAdapterItemListener.onCheckedListener() {
             @Override
             public void onChecked(boolean isSelected, int position) {
                 final int trafficLightID = trafficLightBeanList.get(position).getData().get(0).getTrafficID();
@@ -82,7 +72,7 @@ public class Fragment_TrafiicLight extends BaseFragmentImpl<TrafiicLightContract
                 }
             }
         });
-        trafficLightAdapter.setOnClickListener(new BaseAdapterItemListener.onClickListener() {
+        adapter.setOnClickListener(new BaseAdapterItemListener.onClickListener() {
             @Override
             public void onClick(int position) {
                 List<Integer> trafficLightIdList = new ArrayList<>();
@@ -99,14 +89,14 @@ public class Fragment_TrafiicLight extends BaseFragmentImpl<TrafiicLightContract
     }
 
     @OnClick(R.id.btn_Search)
-    public void onSerachTrafficLightInfo() {
+    public void onSerachTrafficLightInfo() {   /** 查询*/
         mPresenter.getSpinerItemSelected(spTrafficLight.getSelectedItemPosition());
     }
 
     private List<Integer> trafficLightIdListMore;
 
     @OnClick(R.id.btn_setTrafficLightAll)
-    public void setTrafficLightConfigMore() {
+    public void setTrafficLightConfigMore() {    /** 批量设置*/
         mPresenter.showTrafficLightConfigSettingDialog(trafficLightIdListMore);
     }
 }

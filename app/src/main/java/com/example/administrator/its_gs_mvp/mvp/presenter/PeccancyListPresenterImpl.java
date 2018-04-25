@@ -8,6 +8,7 @@ import com.example.administrator.its_gs_mvp.db.PeccancyCard;
 import com.example.administrator.its_gs_mvp.mvp.PeccancyListContract;
 import com.example.administrator.its_gs_mvp.mvp.mpdel.PeccancyListModel;
 import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
+import com.example.administrator.its_gs_mvp.util.LoadingDialog;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -27,6 +28,7 @@ public class PeccancyListPresenterImpl extends BasePresenterImpl<PeccancyListCon
         implements PeccancyListContract.Presenter, PeccancyListContract.Model {
 
     private String carNumber;
+    private boolean isCardRefreshed;
 
     private PeccancyListModel peccancyListModel;
 
@@ -42,6 +44,7 @@ public class PeccancyListPresenterImpl extends BasePresenterImpl<PeccancyListCon
     private int moneySum;//违章罚款总和
 
     public PeccancyListPresenterImpl() {
+        isCardRefreshed = false;
         pCodeList = new ArrayList<>();
         pTimeList = new ArrayList<>();
         pAddrList = new ArrayList<>();
@@ -57,22 +60,19 @@ public class PeccancyListPresenterImpl extends BasePresenterImpl<PeccancyListCon
 
     @Override
     public void onDestory() {
-        peccancyListModel = null;
-        pCodeList = null;
-        pTimeList = null;
-        pAddrList = null;
-        pScoreList = null;
-        pMoneyList = null;
-        pRemarksList = null;
     }
 
     @Override
     public void onCallbackPeccancyCode(JSONObject jsonObject) {
         scoreSum = 0;
         moneySum = 0;
+        pScoreList.clear();
+        pMoneyList.clear();
+        pRemarksList.clear();
         pCountSum = pCodeList.size();
         try {
             if (jsonObject.getInt("code") == 1) {
+                LoadingDialog.disDialog();
                 PeccancyCodeBean bean = new Gson().fromJson(jsonObject.toString(), PeccancyCodeBean.class);
                 if (bean != null) {
                     List<PeccancyCodeBean.DataBean> codeBean = bean.getData();
@@ -91,86 +91,94 @@ public class PeccancyListPresenterImpl extends BasePresenterImpl<PeccancyListCon
                         }
                     }
                 }
-                saveToDataBase();
-                addCardData();
+                /**
+                 * 首先判断此车牌号未存在数据库中--添加违章卡片到数据库
+                 */
+                List<PeccancyCard> peccancyCardList = DataSupport
+                        .where("carNumber=?", carNumber)
+                        .find(PeccancyCard.class);
+                if (peccancyCardList.size() == 0) {
+                    PeccancyCard peccancyCard = new PeccancyCard(carNumber, pCountSum, scoreSum, moneySum);
+                    peccancyCard.save();
+                }
+                /**
+                 * 添加违章卡片的数据
+                 * @isCardRefreshed 需要刷新适配器时调用
+                 */
+                if (isCardRefreshed) {
+                    List<Map<String, Object>> cardInfo = new ArrayList<>();
+                    if (DataSupport.count(PeccancyCard.class) > 0) {
+                        List<PeccancyCard> peccancyList = DataSupport.findAll(PeccancyCard.class);
+                        for (int i = 0; i < peccancyList.size(); i++) {
+                            Map<String, Object> cardMap = new HashMap<>();
+                            cardMap.put("carNumber", peccancyList.get(i).getCarNumber());
+                            cardMap.put("pCount", peccancyList.get(i).getpCount());
+                            cardMap.put("pScoreSum", peccancyList.get(i).getpScoreSum());
+                            cardMap.put("pMoneySum", peccancyList.get(i).getpMoneySum());
+                            cardInfo.add(cardMap);
+                        }
+                    }
+                    /**
+                     * 判断数据不为空，设置到适配器进行显示
+                     */
+                    if (cardInfo.size() != 0) {
+                        mView.setCardAdapter(cardInfo);
+                    }
+                }
+                /**
+                 * 添加违章卡片详情的数据
+                 */
+                List<Map<String, Object>> cardDetailInfo;
+                if (pCodeList == null) {
+                    return;
+                } else {
+                    cardDetailInfo = new ArrayList<>();
+                    for (int i = 0; i < pCodeList.size(); i++) {
+                        Map<String, Object> cardDetailMap = new HashMap<>();
+                        cardDetailMap.put("pTime", pTimeList.get(i));
+                        cardDetailMap.put("pAddr", pAddrList.get(i));
+                        cardDetailMap.put("pRemarks", pRemarksList.get(i));
+                        cardDetailMap.put("pScore", pScoreList.get(i));
+                        cardDetailMap.put("pMoney", pMoneyList.get(i));
+                        cardDetailInfo.add(cardDetailMap);
+                    }
+                    /**
+                     * 判断数据不为空，设置到适配器进行显示
+                     */
+                    if (cardDetailInfo.size() != 0) {
+                        mView.setCardDetailAdapter(cardDetailInfo);
+                    }
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * 添加违章卡片到数据库
-     */
-    private void saveToDataBase() {
-        List<PeccancyCard> peccancyCardList = DataSupport
-                .where("carNumber=?", carNumber)
-                .find(PeccancyCard.class);
-        if (peccancyCardList.size() == 0) {
-            PeccancyCard peccancyCard = new PeccancyCard(carNumber, pCountSum, scoreSum, moneySum);
-            peccancyCard.save();
-        }
-    }
-
     @Override
-    public void addCarNumber(String carNumber) {
+    public void addCarNumber(String carNumber, boolean isCardRefresh) {
         if (TextUtils.isEmpty(carNumber)) {
-           return;
-        }else {
+            return;
+        } else {
+            isCardRefreshed = isCardRefresh;
             pCodeList.clear();//违章代码
             pTimeList.clear();//违章时间
             pAddrList.clear();//违章地点
             this.carNumber = carNumber;
-            List<CarPeccancy> carPeccancyList = DataSupport
-                    .where("carNumber=?", carNumber)
-                    .find(CarPeccancy.class);
-            for (int i = 0; i < carPeccancyList.size(); i++) {
-                CarPeccancy bean = carPeccancyList.get(i);
-                pCodeList.add(bean.getpCode());
-                pTimeList.add(bean.getpTime());
-                pAddrList.add(bean.getpAddr());
+            if (DataSupport.count(CarPeccancy.class) != 0) {
+                List<CarPeccancy> carPeccancyList = DataSupport
+                        .where("carNumber=?", carNumber)
+                        .find(CarPeccancy.class);
+                for (int i = 0; i < carPeccancyList.size(); i++) {
+                    CarPeccancy bean = carPeccancyList.get(i);
+                    pCodeList.add(bean.getpCode());
+                    pTimeList.add(bean.getpTime());
+                    pAddrList.add(bean.getpAddr());
+                }
             }
+
+            LoadingDialog.showDialog(mView.getContext());
             peccancyListModel.getPeccancyCode(this);
-        }
-    }
-
-    private void addCardData() {
-        List<Map<String, Object>> cardInfo = new ArrayList<>();
-        if (DataSupport.count(PeccancyCard.class) > 0) {
-            List<PeccancyCard> peccancyCardList = DataSupport.findAll(PeccancyCard.class);
-            for (int i = 0; i < peccancyCardList.size(); i++) {
-                Map<String, Object> cardMap = new HashMap<>();
-                cardMap.put("carNumber", peccancyCardList.get(i).getCarNumber());
-                cardMap.put("pCount", peccancyCardList.get(i).getpCount());
-                cardMap.put("pScoreSum", peccancyCardList.get(i).getpScoreSum());
-                cardMap.put("pMoneySum", peccancyCardList.get(i).getpMoneySum());
-                cardInfo.add(cardMap);
-            }
-        }
-        if (cardInfo.size() != 0) {
-            mView.setCardAdapter(cardInfo);
-        }
-    }
-
-    @Override
-    public void addCardDetailData() {
-        List<Map<String, Object>> cardDetailInfo;
-        if (pCodeList == null) {
-            return;
-        } else {
-            cardDetailInfo = new ArrayList<>();
-            for (int i = 0; i < pCodeList.size(); i++) {
-                Map<String, Object> cardDetailMap = new HashMap<>();
-                cardDetailMap.put("pTime", pTimeList.get(i));
-                cardDetailMap.put("pAddr", pAddrList.get(i));
-                cardDetailMap.put("pRemarks", pRemarksList.get(i));
-                cardDetailMap.put("pScore", pScoreList.get(i));
-                cardDetailMap.put("pMoney", pMoneyList.get(i));
-                cardDetailInfo.add(cardDetailMap);
-            }
-        }
-        if (cardDetailInfo.size() != 0) {
-            mView.setCardDetailAdapter(cardDetailInfo);
         }
     }
 }

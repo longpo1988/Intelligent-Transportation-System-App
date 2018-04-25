@@ -15,6 +15,7 @@ import com.example.administrator.its_gs_mvp.R;
 import com.example.administrator.its_gs_mvp.mvp.LoginContract;
 import com.example.administrator.its_gs_mvp.mvp.mpdel.LoginModel;
 import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
+import com.example.administrator.its_gs_mvp.util.LoadingDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,11 +36,11 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
     }
 
     @Override
-    public void onCreate() {}
+    public void onCreate() {
+    }
 
     @Override
     public void onDestory() {
-        loginModel = null;
     }
 
     @Override
@@ -49,6 +50,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
         } else if (TextUtils.isEmpty(pwd)) {
             Toast.makeText(mView.getContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
         } else {
+            LoadingDialog.showDialog(mView.getContext());
             loginModel.startLogin(user, pwd, this);
         }
     }
@@ -56,8 +58,8 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
     @Override
     public void saveIPandPORT() {
         /**
-           初始化对话框
-        */
+         初始化对话框
+         */
         final AlertDialog dialog = new AlertDialog.Builder(mView.getContext()).create();
         View dialogView = LayoutInflater.from(mView.getContext()).inflate(R.layout.dialog_login_net_settings, null);
         final EditText edtIp = dialogView.findViewById(R.id.edit_setting_url);
@@ -69,8 +71,8 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
         dialog.show();
 
         /**
-           加载已保存ip和port
-        */
+         加载已保存ip和port
+         */
         SharedPreferences savedNet = App.context.getSharedPreferences("Setting", Context.MODE_PRIVATE);
         String _ip = savedNet.getString("ip", "");
         String _port = savedNet.getString("port", "");
@@ -104,6 +106,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginContract.View>
     public void loginResponse(JSONObject jsonObject) {
         try {
             if (jsonObject.getInt("code") == 1) {
+                LoadingDialog.disDialog();
                 mView.loginSucceed();
                 Toast.makeText(mView.getContext(), "登录成功", Toast.LENGTH_SHORT).show();
             } else if (jsonObject.getString("result").equals("F")) {

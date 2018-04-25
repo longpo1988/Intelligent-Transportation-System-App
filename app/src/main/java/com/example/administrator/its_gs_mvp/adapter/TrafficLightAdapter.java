@@ -1,31 +1,34 @@
 package com.example.administrator.its_gs_mvp.adapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import com.example.administrator.its_gs_mvp.R;
+import com.example.administrator.its_gs_mvp.adapter.base.BaseAdapter;
+import com.example.administrator.its_gs_mvp.adapter.base.BaseAdapterItemListener;
+import com.example.administrator.its_gs_mvp.adapter.base.BaseViewHolder;
 import com.example.administrator.its_gs_mvp.bean.TrafficLightBean;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
- * Created by xww on 2018/4/18 0018.
+ * Created by xww on 2018/4/24 0024.
  */
 
-public class TrafficLightAdapter extends RecyclerView.Adapter<TrafficLightAdapter.ViewHolder> {
-
-    private List<TrafficLightBean> beanList;
+public class TrafficLightAdapter extends BaseAdapter<TrafficLightBean> {
     private BaseAdapterItemListener.onClickListener onClickListener;
     private BaseAdapterItemListener.onCheckedListener onCheckedListener;
+
+    public TrafficLightAdapter(Context Context, List<TrafficLightBean> Data) {
+        super(Context, Data);
+    }
+
+    @Override
+    protected int initLayout() {
+        return R.layout.recy_trafficlight_item;
+    }
 
     public void setOnClickListener(BaseAdapterItemListener.onClickListener onClickListener) {
         this.onClickListener = onClickListener;
@@ -35,58 +38,28 @@ public class TrafficLightAdapter extends RecyclerView.Adapter<TrafficLightAdapte
         this.onCheckedListener = onCheckedListener;
     }
 
-    public TrafficLightAdapter(List<TrafficLightBean> beanList) {
-        this.beanList = beanList;
-    }
-
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recy_trafficlight_item, parent, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tlRoadNum.setText("" + beanList.get(position).getData().get(0).getTrafficID());
-        holder.tlRedTime.setText("" + beanList.get(position).getData().get(0).getRedTime());
-        holder.tlGreenTime.setText("" + beanList.get(position).getData().get(0).getGreenTime());
-        holder.tlYellowTime.setText("" + beanList.get(position).getData().get(0).getYellowTime());
-        holder.tlSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                onCheckedListener.onChecked(b,position);
-            }
-        });
-        holder.tlSetting.setOnClickListener(new View.OnClickListener() {
+    protected void onBindData(Context context, BaseViewHolder holder, final int position, TrafficLightBean trafficLightBean) {
+        holder.setText(R.id.tl_roadNum, "" + trafficLightBean.getData().get(0).getTrafficID());
+        holder.setText(R.id.tl_redTime, "" + trafficLightBean.getData().get(0).getRedTime());
+        holder.setText(R.id.tl_greenTime, "" + trafficLightBean.getData().get(0).getGreenTime());
+        holder.setText(R.id.tl_yellowTime, "" + trafficLightBean.getData().get(0).getYellowTime());
+        holder.getView(R.id.tl_Setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickListener.onClick(position);
+                if (onClickListener != null) {
+                    onClickListener.onClick(position);
+                }
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return beanList.size();
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tl_roadNum)
-        TextView tlRoadNum;
-        @BindView(R.id.tl_redTime)
-        TextView tlRedTime;
-        @BindView(R.id.tl_greenTime)
-        TextView tlGreenTime;
-        @BindView(R.id.tl_yellowTime)
-        TextView tlYellowTime;
-        @BindView(R.id.tl_Selected)
-        CheckBox tlSelected;
-        @BindView(R.id.tl_Setting)
-        Button tlSetting;
-
-        ViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
+        CheckBox checkBox = holder.getView(R.id.tl_Selected);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (onCheckedListener != null) {
+                    onCheckedListener.onChecked(b, position);
+                }
+            }
+        });
     }
 }

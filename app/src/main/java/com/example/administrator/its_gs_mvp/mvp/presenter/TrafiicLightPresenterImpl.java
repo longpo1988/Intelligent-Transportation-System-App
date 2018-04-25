@@ -2,7 +2,6 @@ package com.example.administrator.its_gs_mvp.mvp.presenter;
 
 import android.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +31,10 @@ public class TrafiicLightPresenterImpl extends BasePresenterImpl<TrafiicLightCon
         implements TrafiicLightContract.Presenter, TrafiicLightContract.Model {
 
     private TrafficLightModel trafficLightModel;
+    /**
+     * 比较类
+     */
+    private Comparator<TrafficLightBean> comparatorTrafficLight;
     private List<TrafficLightBean> trafficLightBeanList;
 
     public TrafiicLightPresenterImpl() {
@@ -41,37 +44,29 @@ public class TrafiicLightPresenterImpl extends BasePresenterImpl<TrafiicLightCon
 
     @Override
     public void onCreate() {
-        /**
-         * 调用此方法去获取数据
-         */
-        mView.addTrafficLightID();
+        for (int i = 1; i < 6; i++) {
+            trafficLightModel.getTrafficLightConfig(i, this);
+        }
     }
 
     @Override
     public void onDestory() {
-        trafficLightModel = null;
-        trafficLightBeanList.clear();
-        trafficLightBeanList = null;
     }
 
     @Override
     public void onCallbackGetTrafficLightConfigInfo(JSONObject jsonObject) {
+        if (trafficLightBeanList.size() >= 5) {
+            trafficLightBeanList.clear();
+        }
         try {
             if (jsonObject.getInt("code") == 1) {
-                /**
-                 * 服务器返回数据，进行解析
-                 */
                 TrafficLightBean bean = new Gson().fromJson(jsonObject.toString(), TrafficLightBean.class);
                 if (bean != null) {
                     trafficLightBeanList.add(bean);
-                    /**
-                     * 进行排序
-                     */
-                    SetSortTrafficLight();
-                    /**
-                     * 设置显示
-                     */
-                    mView.setAdapter(trafficLightBeanList);
+                    SetSortTrafficLight(trafficLightBeanList);
+                    if (mView != null) {
+                        mView.setAdapter(trafficLightBeanList);
+                    }
                 }
             }
         } catch (JSONException e) {
@@ -81,39 +76,29 @@ public class TrafiicLightPresenterImpl extends BasePresenterImpl<TrafiicLightCon
 
     @Override
     public void onCallbackSetTrafficLightConfig(JSONObject jsonObject) {
-        Log.i("------------->", "onCallbackSetTrafficLightConfig: " + jsonObject.toString());
         try {
             if (jsonObject.getInt("code") == 1) {
-                Log.i("-------------返回---size", ": " + trafficLightBeanList.size());
-                trafficLightBeanList.clear(); /** 清空Recyclerview适配器之前保存的数据 **/
-                mView.addTrafficLightID();
-                mView.clearTrafficLightIDlist();
+                /**
+                 * 重新刷新数据
+                 */
+                for (int i = 1; i < 6; i++) {
+                    trafficLightModel.getTrafficLightConfig(i, TrafiicLightPresenterImpl.this);
+                }
+                if (mView != null)
+                    mView.clearTrafficLightIDlist();
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void setTrafficLightId() {
-        /**
-         * 让Model去获取网络数据
-         */
-        for (int i = 1; i < 6; i++) {
-            trafficLightModel.getTrafficLightConfig(i, this);
-        }
-    }
 
-    /**
-     * 比较类
-     */
-    private Comparator<TrafficLightBean> comparatorTrafficLight;
-    private int Position = 0;
+    private int Position = 0;/** spainer中选定Item */
 
     /**
      * 对红绿灯按照规则进行排序方法
      */
-    private void SetSortTrafficLight() {
+    private void SetSortTrafficLight(List<TrafficLightBean> trafficLightBean) {
         switch (Position) {
             case 0:
                 comparatorTrafficLight = new Comparator<TrafficLightBean>() {
@@ -244,13 +229,14 @@ public class TrafiicLightPresenterImpl extends BasePresenterImpl<TrafiicLightCon
                 };
                 break;
         }
-        Collections.sort(trafficLightBeanList, comparatorTrafficLight);
+        Collections.sort(trafficLightBean, comparatorTrafficLight);
     }
 
     @Override
     public void getSpinerItemSelected(int position) {
-        trafficLightBeanList.clear(); /** 清空Recyclerview适配器之前保存的数据 **/
-        mView.addTrafficLightID();/** 重新从网络获取数据 **/
+        for (int i = 1; i < 6; i++) {
+            trafficLightModel.getTrafficLightConfig(i, this);
+        }
         Position = position;
     }
 
@@ -260,7 +246,6 @@ public class TrafiicLightPresenterImpl extends BasePresenterImpl<TrafiicLightCon
             Toast.makeText(mView.getContext(), "请选择红绿灯编号", Toast.LENGTH_SHORT).show();
             return;
         }
-        Log.i("------------id--size", ": " + trafficLightId.size());
         final AlertDialog dialog = new AlertDialog.Builder(mView.getContext()).create();
         View TLConfig = LayoutInflater.from(mView.getContext()).inflate(R.layout.dialog_trafficlight_config_setting, null);
         final EditText edtRedTime = TLConfig.findViewById(R.id.edt_redTime);

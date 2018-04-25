@@ -1,12 +1,11 @@
 package com.example.administrator.its_gs_mvp.mvp.presenter;
 
-import android.widget.Toast;
-
 import com.example.administrator.its_gs_mvp.bean.RoadStatusBean;
 import com.example.administrator.its_gs_mvp.bean.SenseBean;
 import com.example.administrator.its_gs_mvp.mvp.RoadStateContract;
 import com.example.administrator.its_gs_mvp.mvp.mpdel.RoadStateModel;
 import com.example.administrator.its_gs_mvp.mvp.presenter.base.BasePresenterImpl;
+import com.example.administrator.its_gs_mvp.util.LoadingDialog;
 import com.example.administrator.its_gs_mvp.util.TimeUtil;
 import com.google.gson.Gson;
 
@@ -56,7 +55,6 @@ public class RoadStatePresenterImpl extends BasePresenterImpl<RoadStateContract.
             timer.purge();
             timer = null;
         }
-        roadStateModel = null;
     }
 
     @Override
@@ -71,6 +69,7 @@ public class RoadStatePresenterImpl extends BasePresenterImpl<RoadStateContract.
 
     @Override
     public void getSensor() {
+        LoadingDialog.showDialog(mView.getContext());
         roadStateModel.getEnvSense(this);
     }
 
@@ -82,7 +81,9 @@ public class RoadStatePresenterImpl extends BasePresenterImpl<RoadStateContract.
                 if (bean != null) {
                     int roadID = bean.getData().get(0).getRoadId();
                     int level = bean.getData().get(0).getLevel();
-                    mView.setRoadStatusColor(roadID, level);
+                    if (mView != null) {
+                        mView.setRoadStatusColor(roadID, level);
+                    }
                 }
             }
         } catch (JSONException e) {
@@ -94,9 +95,12 @@ public class RoadStatePresenterImpl extends BasePresenterImpl<RoadStateContract.
     public void onCallbackGetSensor(JSONObject jsonObject) {
         try {
             if (jsonObject.getInt("code") == 1) {
+                LoadingDialog.disDialog();
                 SenseBean bean = new Gson().fromJson(jsonObject.toString(), SenseBean.class);
                 if (bean != null) {
-                    mView.updateSensor(bean);
+                    if (mView != null) {
+                        mView.updateSensor(bean);
+                    }
                 }
             }
         } catch (JSONException e) {

@@ -1,4 +1,4 @@
-package com.example.administrator.its_gs_mvp.adapter;
+package com.example.administrator.its_gs_mvp.adapter.base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
