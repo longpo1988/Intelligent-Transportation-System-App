@@ -1,15 +1,15 @@
 package com.example.administrator.its_gs_mvp.ui.fragment;
 
-import android.widget.Button;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.example.administrator.its_gs_mvp.R;
-import com.example.administrator.its_gs_mvp.event.FragmentEvent;
+import com.example.administrator.its_gs_mvp.event.TitleEvent;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 照片详情
@@ -21,8 +21,6 @@ public class Fragment_PeccancyPhotoDetail extends BaseFragment {
 
     @BindView(R.id.img_detail)
     ImageView imgDetail;
-    @BindView(R.id.btn_Back)
-    Button btnBack;
 
     public static int Flag;
 
@@ -49,9 +47,9 @@ public class Fragment_PeccancyPhotoDetail extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.btn_Back)
-    public void onBack() {
-        EventBus.getDefault().post(new FragmentEvent(new Fragment_PeccancyPhoto(), "监控抓拍"));
+    public static boolean onKeyDown(int keycode, KeyEvent keyEvent) {
+        EventBus.getDefault().post(new TitleEvent("监控抓拍"));
+        return true;
     }
 }
 

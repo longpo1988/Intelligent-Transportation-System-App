@@ -3,9 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.administrator.its_gs_mvp.ui.custom.ZoomImageView
-        android:id="@+id/img_detail"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_travel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/weizhang01" />
+        android:layout_height="match_parent" />
 </RelativeLayout>

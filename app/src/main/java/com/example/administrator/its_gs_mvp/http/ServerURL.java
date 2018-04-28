@@ -13,9 +13,9 @@ import com.example.administrator.its_gs_mvp.App;
 
 public class ServerURL {
     public static SharedPreferences savedNet = App.context.getSharedPreferences("Setting", Context.MODE_PRIVATE);
-    private static String URL = "http://"
-            + savedNet.getString("ip", "") + ":"
-            + savedNet.getString("port", "")
+    public static String URL = "http://"
+            + savedNet.getString("ip", "localhost") + ":"
+            + savedNet.getString("port", "8080")
             + "/ITSservice/";
 
     public final static String USER_LOGIN = URL + "userLogin.do";//登录接口
@@ -26,4 +26,5 @@ public class ServerURL {
     public final static String GETROADSTATUS = URL + "GetRoadStatus.do";//获取道路状态接口
     public final static String GETALLCARPECCANCY = URL + "GetAllCarPeccancy.do";//获取所有车辆违章接口
     public final static String GETPECCANCYCODE = URL + "GetPeccancyCode.do";//获取违章代码接口
+    public final static String GETTRAVELINFO = URL + "GetTravelInfo.do";//获取旅游信息接口
 }

@@ -2,18 +2,22 @@ package com.example.administrator.its_gs_mvp.ui.activity;
 
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.its_gs_mvp.R;
-import com.example.administrator.its_gs_mvp.event.FragmentEvent;
+import com.example.administrator.its_gs_mvp.event.TitleEvent;
 import com.example.administrator.its_gs_mvp.mvp.MainContract;
 import com.example.administrator.its_gs_mvp.mvp.presenter.MainPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseActivityImpl;
@@ -21,8 +25,11 @@ import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Account;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Peccancy;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Life;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_PeccancyPhoto;
+import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_PeccancyPhotoDetail;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_RoadState;
 import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_TrafiicLight;
+import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Travel;
+import com.example.administrator.its_gs_mvp.ui.fragment.Fragment_Travel_Detail;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,6 +60,10 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
 
     @Override
     protected MainPresenterImpl initPresenter() {
+        /**
+         * 设置全屏显示，隐藏状态栏
+         */
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return new MainPresenterImpl();
     }
 
@@ -67,11 +78,12 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
         setSupportActionBar(tbMain);
         drawerMain.setScrimColor(Color.TRANSPARENT);
         drawerMain.addDrawerListener(mPresenter.initToggle(this, drawerMain, tbMain));
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void setItems(final Object data) {
-        lvMain.setAdapter(new SimpleAdapter(this, (List<? extends Map<String, ?>>) data, R.layout.list_item_main,
+        lvMain.setAdapter(new SimpleAdapter(this, (List<? extends Map<String, ?>>) data, R.layout.list_main_item,
                 new String[]{"icon", "name"}, new int[]{R.id.item_main_img, R.id.item_main_name}));
 
         lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,45 +98,43 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
                     rePlace(new Fragment_Account());
                 } else if (_name.equals("公交查询")) {
                     rePlace(new Fragment_Account());
-                } else if (_name.equals("红绿灯管理")) {
+                } else if (_name.equals("红绿灯管理")) { //完成
                     rePlace(new Fragment_TrafiicLight());
-                } else if (_name.equals("车辆违章")) {
+                } else if (_name.equals("车辆违章")) { //完成
                     rePlace(new Fragment_Peccancy());
-                } else if (_name.equals("路况查询")) {
+                } else if (_name.equals("路况查询")) { //完成
                     rePlace(new Fragment_RoadState());
-                } else if (_name.equals("生活助手")) {
+                } else if (_name.equals("生活助手")) { //完成
                     rePlace(new Fragment_Life());
                 } else if (_name.equals("数据分析")) {
                     rePlace(new Fragment_Account());
                 } else if (_name.equals("个人中心")) {
-                    rePlace(new Fragment_PeccancyPhoto());
+
+                } else if (_name.equals("地铁查询")) {
+
+                } else if (_name.equals("高速路况")) {
+
+                } else if (_name.equals("旅行助手")) {
+                    rePlace(new Fragment_Travel());
                 } else if (_name.equals("创意")) {
 
                 }
             }
         });
-
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
     /**
-     * 切换子碎片
+     * 更改标题
      */
     @Subscribe
-    public void rePlaceChild(FragmentEvent event) {
-        tvTitle.setText(event.getTitle());
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainContent, event.getFragment()).commit();
+    public void rePlaceChild(TitleEvent event) {
+        tvTitle.setText(event.getBarTitle());
     }
 
     /**
@@ -132,5 +142,28 @@ public class MainActivity extends BaseActivityImpl<MainContract.View, MainPresen
      */
     private void rePlace(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.mainContent, fragment).commit();
+    }
+
+    private Fragment getFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        List<Fragment> fragmentList = manager.getFragments();
+        for (Fragment fragment : fragmentList) {
+            if (fragment.isVisible()) {
+                return fragment;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (getFragment() instanceof Fragment_Travel_Detail) {
+            Fragment_Travel_Detail.onKeyDown(keyCode, event);
+        } else if (getFragment() instanceof Fragment_PeccancyPhoto) {
+            Fragment_PeccancyPhoto.onKeyDown(keyCode, event);
+        } else if (getFragment() instanceof Fragment_PeccancyPhotoDetail) {
+            Fragment_PeccancyPhotoDetail.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

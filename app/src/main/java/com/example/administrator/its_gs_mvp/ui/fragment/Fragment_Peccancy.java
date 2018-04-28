@@ -1,16 +1,20 @@
 package com.example.administrator.its_gs_mvp.ui.fragment;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.example.administrator.its_gs_mvp.R;
-import com.example.administrator.its_gs_mvp.event.FragmentEvent;
+import com.example.administrator.its_gs_mvp.event.TitleEvent;
 import com.example.administrator.its_gs_mvp.mvp.CarPeccancyContract;
 import com.example.administrator.its_gs_mvp.mvp.presenter.CarPeccancyPresenterImpl;
-import com.example.administrator.its_gs_mvp.mvp.presenter.PeccancyListPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseFragmentImpl;
+
 import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -39,7 +43,8 @@ public class Fragment_Peccancy extends BaseFragmentImpl<CarPeccancyContract.View
     }
 
     @Override
-    protected void initView() {}
+    protected void initView() {
+    }
 
     @OnClick(R.id.btn_FindPeccancy)
     public void onFindCarPeccancy() {
@@ -53,7 +58,11 @@ public class Fragment_Peccancy extends BaseFragmentImpl<CarPeccancyContract.View
                 /**
                  * 切换到违章详情界面
                  */
-                EventBus.getDefault().post(new FragmentEvent(new Fragment_PeccancyList(), "违章详情"));
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.mainContent, new Fragment_PeccancyList());
+                transaction.commit();
+                EventBus.getDefault().post(new TitleEvent("违章详情"));
                 /**
                  * 从数据库查询 此车牌号 所有违章信息
                  */

@@ -1,5 +1,6 @@
 package com.example.administrator.its_gs_mvp.adapter.base;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -12,6 +13,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 /**
  * @Created by x22 on 2018/4/24 0024.
  */
@@ -23,11 +26,13 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      */
     private SparseArray<View> mViews;
     private View mItemView;
+    private Context mContext;
 
     public BaseViewHolder(View itemView) {
         super(itemView);
         this.mItemView = itemView;
         mViews = new SparseArray<>();
+        mContext = mItemView.getContext();
     }
 
     /**
@@ -85,6 +90,12 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder setImageDrawable(int viewId, Drawable drawable) {
         ImageView imageView = getView(viewId);
         imageView.setImageDrawable(drawable);
+        return this;
+    }
+
+    public BaseViewHolder setImageUseGlide(int viewId, String url) {
+        ImageView imageView = getView(viewId);
+        Glide.with(mContext).load(url).into(imageView);
         return this;
     }
 

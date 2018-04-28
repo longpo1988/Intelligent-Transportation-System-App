@@ -46,7 +46,7 @@ public class HttpUtil {
      * @param callback 回调监听
      */
     public void Request(String url, JSONObject obj, final CallBack.VolleyCallback callback) {
-        Log.i("--->url", ": "+url);
+        Log.i("--->url", ": " + url);
         JsonObjectRequest request = new JsonObjectRequest(com.android.volley.Request.Method.POST,
                 url, obj, new com.android.volley.Response.Listener<JSONObject>() {
             @Override
@@ -56,6 +56,7 @@ public class HttpUtil {
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                Log.i("--->error", ": " + volleyError.toString());
             }
         });
         queue.add(request);

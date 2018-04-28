@@ -11,7 +11,7 @@
         android:id="@+id/tb_Main"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@color/md_grey_800_color_code"
         android:theme="@style/OverflowMenuStyle"
         app:popupTheme="@style/OverflowMenuStyle">
 

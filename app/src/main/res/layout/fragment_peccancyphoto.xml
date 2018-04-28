@@ -52,13 +52,5 @@
                 android:layout_weight="1"
                 android:src="@drawable/weizhang04" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_Back"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="返回" />
     </LinearLayout>
 </RelativeLayout>

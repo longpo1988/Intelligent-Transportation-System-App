@@ -1,5 +1,7 @@
 package com.example.administrator.its_gs_mvp.ui.fragment;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,7 +13,7 @@ import com.example.administrator.its_gs_mvp.adapter.PeccancyCardDetailAdapter;
 import com.example.administrator.its_gs_mvp.adapter.base.BaseAdapter;
 import com.example.administrator.its_gs_mvp.adapter.base.BaseAdapterItemListener;
 import com.example.administrator.its_gs_mvp.db.PeccancyCard;
-import com.example.administrator.its_gs_mvp.event.FragmentEvent;
+import com.example.administrator.its_gs_mvp.event.TitleEvent;
 import com.example.administrator.its_gs_mvp.mvp.PeccancyListContract;
 import com.example.administrator.its_gs_mvp.mvp.presenter.PeccancyListPresenterImpl;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseFragmentImpl;
@@ -62,10 +64,10 @@ public class Fragment_PeccancyList extends BaseFragmentImpl<PeccancyListContract
 
     @OnClick(R.id.addCard)
     public void addCarPeccancyCard() {
-        /**
-         * 切换到查询车辆违章界面
-         */
-        EventBus.getDefault().post(new FragmentEvent(new Fragment_Peccancy(), "车辆违章"));
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.mainContent, new Fragment_Peccancy());
+        transaction.commit();
     }
 
     @Override
@@ -99,7 +101,16 @@ public class Fragment_PeccancyList extends BaseFragmentImpl<PeccancyListContract
         adapter.setOnItemClickListener(new BaseAdapter.onItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                EventBus.getDefault().post(new FragmentEvent(new Fragment_PeccancyPhoto(), "监控抓拍"));
+                EventBus.getDefault().post(new TitleEvent("监控抓拍"));
+                /**
+                 * 添加到返回栈中
+                 */
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.hide(Fragment_PeccancyList.this);
+                transaction.add(R.id.mainContent, new Fragment_PeccancyPhoto(), "photo");
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
     }

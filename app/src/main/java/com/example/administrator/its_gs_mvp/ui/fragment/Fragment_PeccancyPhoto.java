@@ -1,12 +1,17 @@
 package com.example.administrator.its_gs_mvp.ui.fragment;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+
 import com.example.administrator.its_gs_mvp.R;
-import com.example.administrator.its_gs_mvp.event.FragmentEvent;
+import com.example.administrator.its_gs_mvp.event.TitleEvent;
 import com.example.administrator.its_gs_mvp.mvp.view.BaseFragment;
+
 import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -26,8 +31,6 @@ public class Fragment_PeccancyPhoto extends BaseFragment {
     ImageView img3;
     @BindView(R.id.img_4)
     ImageView img4;
-    @BindView(R.id.btn_Back)
-    Button btnBack;
 
     @Override
     protected int setLayoutId() {
@@ -38,29 +41,34 @@ public class Fragment_PeccancyPhoto extends BaseFragment {
     protected void initView() {
     }
 
-    @OnClick({R.id.btn_Back, R.id.img_1, R.id.img_2, R.id.img_3, R.id.img_4})
+    @OnClick({R.id.img_1, R.id.img_2, R.id.img_3, R.id.img_4})
     public void onBack(View view) {
         switch (view.getId()) {
-            case R.id.btn_Back:
-                EventBus.getDefault().post(new FragmentEvent(new Fragment_PeccancyList(), "违章详情"));
-                break;
             case R.id.img_1:
                 Fragment_PeccancyPhotoDetail.Flag = 1;
-                EventBus.getDefault().post(new FragmentEvent(new Fragment_PeccancyPhotoDetail(), "照片详情"));
                 break;
             case R.id.img_2:
                 Fragment_PeccancyPhotoDetail.Flag = 2;
-                EventBus.getDefault().post(new FragmentEvent(new Fragment_PeccancyPhotoDetail(), "照片详情"));
                 break;
             case R.id.img_3:
                 Fragment_PeccancyPhotoDetail.Flag = 3;
-                EventBus.getDefault().post(new FragmentEvent(new Fragment_PeccancyPhotoDetail(), "照片详情"));
                 break;
             case R.id.img_4:
                 Fragment_PeccancyPhotoDetail.Flag = 4;
-                EventBus.getDefault().post(new FragmentEvent(new Fragment_PeccancyPhotoDetail(), "照片详情"));
                 break;
         }
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.hide(Fragment_PeccancyPhoto.this);
+        transaction.add(R.id.mainContent, new Fragment_PeccancyPhotoDetail(), "photo");
+        transaction.addToBackStack(null);
+        transaction.commit();
+        EventBus.getDefault().post(new TitleEvent("照片详情"));
+    }
+
+    public static boolean onKeyDown(int keycode, KeyEvent keyEvent) {
+        EventBus.getDefault().post(new TitleEvent("违章详情"));
+        return true;
     }
 }
 

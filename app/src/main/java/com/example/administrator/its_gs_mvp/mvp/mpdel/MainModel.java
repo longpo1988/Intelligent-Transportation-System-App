@@ -14,8 +14,9 @@ import java.util.Map;
 
 public class MainModel implements MainContract.Model {
     private final String titles[] = {"账户管理", "公交查询", "红绿灯管理", "车辆违章", "路况查询",
-            "生活助手", "数据分析", "个人中心", "创意"};
+            "生活助手", "数据分析", "个人中心", "地铁查询", "高速路况", "旅行助手", "创意"};
     private final int icons[] = {R.drawable.ic_list_item_lefticon, R.drawable.ic_list_item_lefticon,
+            R.drawable.ic_list_item_lefticon, R.drawable.ic_list_item_lefticon, R.drawable.ic_list_item_lefticon,
             R.drawable.ic_list_item_lefticon, R.drawable.ic_list_item_lefticon, R.drawable.ic_list_item_lefticon,
             R.drawable.ic_list_item_lefticon, R.drawable.ic_list_item_lefticon, R.drawable.ic_list_item_lefticon,
             R.drawable.ic_list_item_lefticon};
